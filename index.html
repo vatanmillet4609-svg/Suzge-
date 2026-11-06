@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6c4df6">
+  <meta name="description" content="SÜZGEÇ - Alışveriş kararlarını birlikte ver. Ürünleri karşılaştır, deneyimleri keşfet.">
+  <title>SÜZGEÇ | Akıllı Alışveriş Topluluğu</title>
+  <style>
+    :root{--purple:#6c4df6;--ink:#202033;--muted:#77778a;--bg:#f6f5fb;--line:#e9e7f2;--mint:#dff8ed;--pink:#ffe7ef}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+    .top{max-width:1050px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{font-size:25px;font-weight:900;letter-spacing:-1.4px;color:var(--purple)}.brand span{color:#242338}
+    .tag{font-size:11px;color:var(--muted);font-weight:600}
+    .wrap{max-width:1050px;margin:22px auto;padding:0 16px}
+    .hero{background:linear-gradient(125deg,#6c4df6,#9c70ff 65%,#d58cff);color:#fff;border-radius:25px;padding:26px 23px;position:relative;overflow:hidden}
+    .hero:after{content:"✦";position:absolute;font-size:150px;right:20px;top:-40px;opacity:.13}
+    .hero h1{font-size:clamp(25px,5vw,39px);line-height:1.12;margin:0 0 10px;max-width:620px}
+    .hero p{margin:0 0 18px;opacity:.92;max-width:580px}
+    .search{display:flex;gap:8px;max-width:670px;background:#fff;padding:6px;border-radius:15px;position:relative;z-index:1}
+    .search input{min-width:0;flex:1;border:0;outline:0;padding:11px 12px;font-size:15px;color:var(--ink)}
+    button{border:0;cursor:pointer;font:inherit;font-weight:750;border-radius:12px;padding:11px 15px}
+    .primary{background:var(--purple);color:#fff}.hero .primary{background:#242338}
+    .tabs{display:flex;gap:8px;overflow:auto;padding:17px 0 8px}
+    .tab{white-space:nowrap;background:#fff;color:#626176;border:1px solid var(--line);padding:9px 14px;border-radius:30px;font-size:13px}
+    .tab.active{background:var(--purple);color:#fff;border-color:var(--purple)}
+    .section-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 12px;gap:10px}
+    h2{font-size:20px;margin:0} .sub{font-size:13px;color:var(--muted);margin-top:3px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;min-width:0}
+    .emoji{height:94px;border-radius:14px;background:linear-gradient(135deg,#f0edff,#e7f9f2);display:grid;place-items:center;font-size:48px;margin-bottom:12px}
+    .card h3{font-size:15px;margin:0 0 5px}.muted{color:var(--muted);font-size:12px}
+    .price{font-size:19px;font-weight:850;margin:10px 0}
+    .actions{display:flex;gap:7px}.actions button{flex:1;font-size:12px;padding:9px 7px}
+    .soft{background:#f0edff;color:var(--purple)}
+    .feed{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}
+    .post{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:10px}
+    .avatar{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--pink);margin-right:8px}
+    .post p{font-size:14px;line-height:1.5}.pill{display:inline-block;background:var(--mint);padding:5px 9px;border-radius:20px;font-size:11px;font-weight:700}
+    .sidebox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:10px}
+    .sidebox h3{margin:0 0 8px;font-size:16px}.sidebox p{font-size:13px;color:var(--muted);line-height:1.5}
+    .compare-list{font-size:13px;line-height:1.8;padding-left:18px}
+    footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 10px}
+    .notice{display:none;background:#fff5d9;color:#705300;padding:11px 14px;border-radius:12px;margin:12px 0;font-size:13px}
+    @media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.feed{grid-template-columns:1fr}.hero{padding:23px 17px}.wrap{margin-top:15px}}
+    @media(max-width:420px){.grid{grid-template-columns:1fr}.emoji{height:80px}.search button{padding:10px}.tag{display:none}}
+  </style>
+</head>
+<body>
+<header><div class="top"><div><div class="brand">SÜZGEÇ<span>.</span></div><div class="tag">Daha akıllı alışveriş, birlikte karar</div></div><button class="soft" onclick="showInfo()">Nasıl çalışır?</button></div></header>
+<main class="wrap">
+  <section class="hero">
+    <h1>Alışveriş yapmadan önce<br>bir de SÜZGEÇ'ten geçir.</h1>
+    <p>İhtiyacını anlat, ürünleri karşılaştır, gerçek kullanıcı deneyimlerinden yararlan. En doğru kararı birlikte verelim.</p>
+    <div class="search"><input id="query" placeholder="Örn. Evcil hayvanlı ev için robot süpürge..." aria-label="Ürün veya ihtiyaç ara"><button class="primary" onclick="searchProducts()">Süzgeçten geçir ✨</button></div>
+  </section>
+  <div id="notice" class="notice"></div>
+  <nav class="tabs" aria-label="Kategoriler">
+    <button class="tab active" onclick="setCategory('Tümü',this)">Keşfet</button>
+    <button class="tab" onclick="setCategory('Robot süpürge',this)">🤖 Robot süpürgeler</button>
+    <button class="tab" onclick="setCategory('Ev',this)">🏡 Ev & yaşam</button>
+    <button class="tab" onclick="setCategory('Teknoloji',this)">📱 Teknoloji</button>
+    <button class="tab" onclick="setCategory('Deneyimler',this)">💬 Deneyimler</button>
+  </nav>
+  <div class="section-head"><div><h2 id="sectionTitle">Öne çıkan ürünler</h2><div class="sub">İlk örnek kategori: robot süpürgeler</div></div><span class="pill">TOPLULUK SEÇİMİ</span></div>
+  <section class="grid" id="products">
+    <article class="card" data-category="Robot süpürge" data-name="Robot süpürge A">
+      <div class="emoji">🤖</div><h3>Robot Süpürge A</h3><div class="muted">Örnek ürün kartı · Haritalama</div><div class="price">₺ —</div><div class="actions"><button class="soft" onclick="addCompare('Robot Süpürge A')">Karşılaştır</button><button class="primary" onclick="experience('Robot Süpürge A')">Deneyimler</button></div>
+    </article>
+    <article class="card" data-category="Robot süpürge" data-name="Robot süpürge B">
+      <div class="emoji">🧹</div><h3>Robot Süpürge B</h3><div class="muted">Örnek ürün kartı · Paspas</div><div class="price">₺ —</div><div class="actions"><button class="soft" onclick="addCompare('Robot Süpürge B')">Karşılaştır</button><button class="primary" onclick="experience('Robot Süpürge B')">Deneyimler</button></div>
+    </article>
+    <article class="card" data-category="Robot süpürge" data-name="Robot süpürge C">
+      <div class="emoji">🏠</div><h3>Robot Süpürge C</h3><div class="muted">Örnek ürün kartı · Evcil hayvan</div><div class="price">₺ —</div><div class="actions"><button class="soft" onclick="addCompare('Robot Süpürge C')">Karşılaştır</button><button class="primary" onclick="experience('Robot Süpürge C')">Deneyimler</button></div>
+    </article>
+  </section>
+  <section class="feed">
+    <div>
+      <div class="section-head"><div><h2>Topluluktan</h2><div class="sub">Alışveriş deneyimleri ve öneriler</div></div></div>
+      <article class="post"><div><span class="avatar">👩</span><b>Deneyim paylaşımı</b> <span class="muted">· Örnek içerik</span></div><p>Robot süpürge alırken yalnızca emiş gücüne değil, haritalama başarısına ve yedek parça maliyetine de bakın.</p><span class="pill">Alışveriş ipucu</span></article>
+      <article class="post"><div><span class="avatar">🧑</span><b>Topluluk sorusu</b> <span class="muted">· Örnek içerik</span></div><p>Evinde kedi veya köpek olanlar hangi özellikleri mutlaka aramalı? Deneyimlerini paylaş.</p><span class="pill">Soru & cevap</span></article>
+    </div>
+    <aside>
+      <div class="sidebox"><h3>⚖️ Karşılaştırma listen</h3><div id="compare"><p class="muted">Karşılaştırmak istediğin ürünleri ekle.</p></div><button class="primary" style="width:100%;margin-top:8px" onclick="compareNow()">Karşılaştırmayı gör</button></div>
+      <div class="sidebox"><h3>✨ Akıllı ürün süzgeci</h3><p>İhtiyacını yaz; bütçe, kullanım amacı ve önceliklerine göre ürünleri değerlendirmene yardımcı olacak alan.</p><button class="soft" style="width:100%" onclick="document.getElementById('query').focus()">İhtiyacını yaz</button></div>
+      <div class="sidebox"><h3>📣 Yakında</h3><p>Satıcı teklifleri · Fiyat geçmişi · Toplu alım · Kullanıcı profilleri</p></div>
+    </aside>
+  </section>
+</main>
+<footer>© 2026 SÜZGEÇ · Akıllı alışveriş topluluğu<br>Bu sürüm ilk taslak/prototiptir; ürün ve fiyat bilgileri gerçek zamanlı değildir.</footer>
+<script>
+  let compareItems=[];
+  function note(msg){const n=document.getElementById('notice');n.textContent=msg;n.style.display='block';}
+  function setCategory(category,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('#products .card').forEach(c=>c.style.display=(category==='Tümü'||category==='Robot süpürge'||category==='Deneyimler'||c.dataset.category===category)?'':'none');document.getElementById('sectionTitle').textContent=category==='Tümü'?'Öne çıkan ürünler':category+' · keşfet';}
+  function addCompare(name){if(!compareItems.includes(name))compareItems.push(name);renderCompare();note(name+' karşılaştırma listene eklendi.');}
+  function renderCompare(){document.getElementById('compare').innerHTML=compareItems.length?'<ul class="compare-list">'+compareItems.map(x=>'<li>'+x+'</li>').join('')+'</ul>':'<p class="muted">Karşılaştırmak istediğin ürünleri ekle.</p>';}
+  function compareNow(){note(compareItems.length<2?'Karşılaştırma için en az iki ürün ekle.':compareItems.join(' · ')+' seçildi. Ayrıntılı karşılaştırma özelliği sonraki sürümde bağlanacak.');}
+  function experience(name){note(name+' için kullanıcı deneyimleri alanı hazırlanıyor.');}
+  function searchProducts(){const q=document.getElementById('query').value.trim();if(!q){note('Önce ihtiyacını veya aradığın ürünü yaz.');return;}note('Arama isteğin alındı: “'+q+'”. Bu prototipte gerçek yapay zekâ ve ürün veri bağlantısı henüz etkin değil.');}
+  function showInfo(){note('SÜZGEÇ; ürün araştırma, karşılaştırma ve topluluk deneyimlerini tek yerde buluşturmayı hedefleyen bir platformdur. Bu ilk sürüm tasarım prototipidir.');}
+</script>
+</body>
+</html>
